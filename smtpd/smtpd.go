@@ -13,7 +13,7 @@ import (
 	"fmt"
 	"log"
 	"net"
-	"os/exec"
+	"os"
 	"regexp"
 	"strings"
 	"time"
@@ -95,11 +95,11 @@ func (srv *Server) hostname() string {
 	if srv.Hostname != "" {
 		return srv.Hostname
 	}
-	out, err := exec.Command("hostname").Output()
+	h, err := os.Hostname()
 	if err != nil {
 		return ""
 	}
-	return strings.TrimSpace(string(out))
+	return strings.TrimSpace(h)
 }
 
 func (srv *Server) logf(fmt string, args ...interface{}) {
