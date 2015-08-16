@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"log"
+	"os"
 	"strings"
 
 	"github.com/bradfitz/go-smtpd/smtpd"
@@ -28,6 +29,7 @@ func main() {
 	s := &smtpd.Server{
 		Addr:      ":2500",
 		OnNewMail: onNewMail,
+		Logger: log.New(os.Stderr, "", log.LstdFlags),
 	}
 	err := s.ListenAndServe()
 	if err != nil {
